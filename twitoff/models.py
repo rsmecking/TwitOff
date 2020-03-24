@@ -1,13 +1,16 @@
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()
+DB = SQLAlchemy()
 
 class User(DB.Model):
     """Twitter users that we analyze"""
-    id = db.Column(db.BigInteger, primary_key=True)
-    name = db.Column(db.String(15), nullable=False)
+    id = DB.Column(DB.BigInteger, primary_key=True)
+    name = DB.Column(DB.String(15), nullable=False)
 
 class Tweet (DB.Model):
     """Tweets we pull"""
-    id = db.Column(db.BigInteger, primary_key=True)
-    text = db.Column(db.Unicode(280))
+    id = DB.Column(DB.BigInteger, primary_key=True)
+    text = DB.Column(DB.Unicode(280))
+    user_id = DB.Column(DB.BigInteger, DB. ForeignKey('user.id'), nullable=False)
+    user = DB.relationship('User', backref=DB.backref('tweets', lazy=True))
+
