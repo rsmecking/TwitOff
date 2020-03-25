@@ -1,6 +1,7 @@
 """Code for our app"""
 
-from flask import Flask
+# from decouple import config
+from flask import Flask, render_template, request
 from .models import DB
 #making app factory
 
@@ -14,5 +15,5 @@ def create_app():
 
     @app.route('/')
     def root():
-        return 'Welcome to Twitoff!!'
+        return render_template('base.html')
     return app
