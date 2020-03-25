@@ -15,5 +15,12 @@ def create_app():
 
     @app.route('/')
     def root():
-        return render_template('base.html')
+        return render_template('base.html', title='Home')
+    return app
+
+    @app.route('/reset')
+    def reset():
+        DB.drop_all()
+        DB.create_all()
+        return render_template('base.html', title='Reset database!')
     return app
