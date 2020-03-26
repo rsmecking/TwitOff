@@ -1,6 +1,6 @@
 """Code for our app"""
 
-# from decouple import config
+from decouple import config
 from flask import Flask, render_template, request
 
 from .models import DB, User
@@ -11,7 +11,7 @@ from .twitter import add_or_update_user, update_all_users
 def create_app():
     """Create and configure an instance of the Flask application"""
     app = Flask(__name__)
-    # app.config['SQLALCHEMY_DATABASE_URI'] = config('DATABASE_URL')
+    app.config['SQLALCHEMY_DATABASE_URI'] = config('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     DB.init_app(app)
 
@@ -47,7 +47,7 @@ def create_app():
             message = '"{}" is more likely to be said by {} than {}'.format(
                 request.values['tweet_text'], user1 if prediction else user2,
                 user2 if prediction else user1)
-        return render_template('prediction.html', title='Prediction', message=message)
+        return render_template('predict.html', title='Prediction', message=message)
 
     @app.route('/reset')
     def reset():
